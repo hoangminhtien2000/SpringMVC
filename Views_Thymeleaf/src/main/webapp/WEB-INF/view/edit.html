@@ -1,0 +1,20 @@
+
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+<form action="/edit" method="post">
+    <input placeholder="id" name="id" th:value="${e.getId()}" readonly><br>
+    <input placeholder="name" name="name" th:value="${e.getName()}"><br>
+    <input placeholder="price" name="price" th:value="${e.getPrice()}"><br>
+    <select id="status" name="status" style="width: 170px ; height: 25px">
+        <option th:value="${e.isStatus()} " selected>STATUS</option>
+        <option value="1" >Còn Hàng</option>
+        <option value="0">Hết Hàng</option>
+    </select><br>
+
+    <button type="submit">Create</button>
+</form>
+</body>
+</html>
