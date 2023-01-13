@@ -49,24 +49,23 @@ public class Home {
         return "redirect:/home";
     }
 
-//    @GetMapping("/edit/{id}")
-//    public String edit(@PathVariable int id, Model model){
-//        model.addAttribute("e",productService.findByIndex(id));
-//        return "edit";
-//    }
-//
-//    @PostMapping("/edit")
-//    public String edit( Product product,@RequestParam MultipartFile upImg ){
-//        int index= productService.findById(product.getId());
-//        String nameFile = upImg.getOriginalFilename();
-//        try {
-//            FileCopyUtils.copy(upImg.getBytes(), new File("D:/webstorm/SpringMVC/Views_Thymeleaf/src/main/webapp/WEB-INF/image/" + nameFile));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        product.setImg("/image/"+ nameFile);
-//        ProductService.products.set(index,product);
-//        return "redirect:/home";
-//    }
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable int id, Model model){
+        model.addAttribute("e",productService.findById(id));
+        return "edit";
+    }
+
+    @PostMapping("/edit")
+    public String edit( Product product,@RequestParam MultipartFile upImg ){
+        String nameFile = upImg.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(upImg.getBytes(), new File("D:/webstorm/SpringMVC/Views_Thymeleaf/src/main/webapp/WEB-INF/image/" + nameFile));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        product.setImg("/image/"+ nameFile);
+        productService.edit(product);
+        return "redirect:/home";
+    }
 
 }
