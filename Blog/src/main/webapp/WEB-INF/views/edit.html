@@ -1,0 +1,18 @@
+<html>
+<head>
+    <title>Edit Blog</title>
+</head>
+<body>
+<form th:action="@{/edit}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" th:value="${e.getId()} "/>
+    <input placeholder="title" name="title" th:value="${e.getTitle()}"><br>
+    <input placeholder="content" name="content" th:value="${e.getContent()}"><br>
+    <input type="file" name="upImg"/><br>
+    <select name="idCategory" class="btn btn-secondary">
+        <option th:each="b :${category}" th:text="${b.name}" th:value="${b.id}"
+                th:selected="${e.getCategory().getId() == b.getId()}"></option>
+    </select>
+    <button type="submit">Edit</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,19 @@
+
+<html>
+<head>
+    <title>Create Blog</title>
+</head>
+<body>
+<form th:action="@{/create}" method="post" enctype="multipart/form-data">
+    <input placeholder="title" name="title"><br>
+    <input placeholder="content" name="content"><br>
+    <input type="file" name="upImg" /><br>
+    <select  name="idCategory" class="btn btn-secondary">
+        <div th:each="b :${category}">
+            <option th:text="${b.name}" th:value="${b.id}"></option>
+        </div>
+    </select>
+    <button type="submit">Create</button>
+</form>
+</body>
+</html>
