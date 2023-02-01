@@ -23,13 +23,12 @@ public class BlogService {
     }
 
     public void deleteById(int id){
+
         iBlogRepo.deleteById(id);
     }
 
     public Optional<Blog> findById(int id) {
         return  iBlogRepo.findById(id);
     }
-
-
 
 }

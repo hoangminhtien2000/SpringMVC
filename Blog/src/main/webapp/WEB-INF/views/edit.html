@@ -4,14 +4,16 @@
 </head>
 <body>
 <form th:action="@{/edit}" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="id" th:value="${e.getId()} "/>
+    <input  type="hidden" name="id" th:value="${e.getId()} "/>
     <input placeholder="title" name="title" th:value="${e.getTitle()}"><br>
     <input placeholder="content" name="content" th:value="${e.getContent()}"><br>
-    <input type="file" name="upImg"/><br>
+    <input placeholder="img" name="img" th:value="${e.getImg()}" readonly><br>
+<!--    <img th:src="${e.getImg()}" width="300" height="200"><br>-->
+    <input type="file" name="upImg"><br>
     <select name="idCategory" class="btn btn-secondary">
         <option th:each="b :${category}" th:text="${b.name}" th:value="${b.id}"
                 th:selected="${e.getCategory().getId() == b.getId()}"></option>
-    </select>
+    </select><br>
     <button type="submit">Edit</button>
 </form>
 </body>

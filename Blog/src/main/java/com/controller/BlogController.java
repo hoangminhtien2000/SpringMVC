@@ -7,7 +7,6 @@ import com.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,20 +33,6 @@ public class BlogController {
         return modelAndView;
     }
 
-//    @GetMapping("/create")
-//    public ModelAndView saveBlog(@ModelAttribute("category") Category category) {
-//        ModelAndView modelAndView = new ModelAndView("/create");
-//        return modelAndView;
-//    }
-//
-//    @PostMapping("/create")
-//    public ModelAndView saveBlog(Blog blog, @RequestParam Integer idCategory) {
-//        ModelAndView modelAndView = new ModelAndView("redirect:/blog");
-//        blog.setCategory(categoryService.findById(idCategory).get());
-//        blogService.save(blog);
-//        return modelAndView;
-//    }
-
     @GetMapping("/create")
     public ModelAndView saveBlog() {
         ModelAndView modelAndView = new ModelAndView("/create");
@@ -61,7 +46,8 @@ public class BlogController {
         blog.setCategory(category);
         String nameFile = upImg.getOriginalFilename();
         try {
-            FileCopyUtils.copy(upImg.getBytes(), new File("D:\\webstorm\\SpringMVC\\Blog\\src\\main\\webapp\\WEB-INF\\image/" + nameFile));
+            FileCopyUtils.copy(upImg.getBytes(),
+                    new File("D:\\webstorm\\SpringMVC\\Blog\\src\\main\\webapp\\WEB-INF\\image/" + nameFile));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,16 +72,31 @@ public class BlogController {
     }
 
     @PostMapping("/edit")
-    public ModelAndView edit(Blog blog, @Param("idCategory") Integer idCategory, @RequestParam MultipartFile upImg) {
+    public ModelAndView edit(@ModelAttribute Blog blog, @Param("idCategory") Integer idCategory, @RequestParam MultipartFile upImg) {
         ModelAndView modelAndView = new ModelAndView("redirect:/blog") ;
         blog.setCategory(categoryService.findById(idCategory).get());
         String nameFile = upImg.getOriginalFilename();
-        try {
-            FileCopyUtils.copy(upImg.getBytes(), new File("D:\\webstorm\\SpringMVC\\Blog\\src\\main\\webapp\\WEB-INF\\image/" + nameFile));
-        } catch (Exception e) {
-            e.printStackTrace();
+//        try {
+//            FileCopyUtils.copy(upImg.getBytes(),
+//                    new File("D:\\webstorm\\SpringMVC\\Blog\\src\\main\\webapp\\WEB-INF\\image/" + nameFile));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        blog.setImg("/image/"+ nameFile);
+//        blogService.save(blog);
+
+        if (!upImg.isEmpty()) {
+            try {
+                FileCopyUtils.copy(upImg.getBytes(),
+                        new File("D:\\webstorm\\SpringMVC\\Blog\\src\\main\\webapp\\WEB-INF\\image/" + nameFile));
+                blog.setImg("/image/"+ nameFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        blog.setImg("/image/"+ nameFile);
+        else {
+            blog.setImg(blog.getImg());
+        }
         blogService.save(blog);
         return  modelAndView;
     }
