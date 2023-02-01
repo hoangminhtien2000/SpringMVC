@@ -5,6 +5,8 @@ import com.model.Category;
 import com.service.BlogService;
 import com.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.List;
 
@@ -21,15 +24,18 @@ public class BlogController {
     BlogService blogService;
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    HttpSession httpSession;
     @ModelAttribute("category")
     public List<Category> categoryList() {
         return (List<Category>) categoryService.findAll();
     }
 
     @GetMapping("/blog")
-    public ModelAndView show(){
+    public ModelAndView show(@RequestParam(defaultValue = "0") int page){
+
         ModelAndView modelAndView = new ModelAndView("showBlog");
-        modelAndView.addObject("blogs",blogService.getAll());
+        modelAndView.addObject("blogs",blogService.getAll(PageRequest.of(page,2,Sort.by("id"))));
         return modelAndView;
     }
 

@@ -4,6 +4,8 @@ import com.model.Blog;
 import com.model.Category;
 import com.repository.IBlogRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,8 +16,8 @@ public class BlogService {
     @Autowired
     IBlogRepo iBlogRepo;
 
-    public List<Blog> getAll(){
-        return (List<Blog>) iBlogRepo.findAll();
+    public Page<Blog> getAll(Pageable pageablea){
+        return iBlogRepo.findAll(pageablea);
     }
 
     public void save(Blog blog) {

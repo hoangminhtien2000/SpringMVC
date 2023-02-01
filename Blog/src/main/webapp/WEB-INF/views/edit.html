@@ -3,6 +3,7 @@
     <title>Edit Blog</title>
 </head>
 <body>
+<a type="button" class="btn btn-danger" th:href="@{/blog}">Back</a>
 <form th:action="@{/edit}" method="post" enctype="multipart/form-data">
     <input  type="hidden" name="id" th:value="${e.getId()} "/>
     <input placeholder="title" name="title" th:value="${e.getTitle()}"><br>
@@ -16,5 +17,6 @@
     </select><br>
     <button type="submit">Edit</button>
 </form>
+<a type="button" class="btn btn-danger" th:href="@{/delete/{id}(id=${e.getId()})}">DELETE</a>
 </body>
 </html>
