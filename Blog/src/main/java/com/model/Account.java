@@ -1,4 +1,4 @@
-package com.blog_module4_c0922h1.model;
+package com.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

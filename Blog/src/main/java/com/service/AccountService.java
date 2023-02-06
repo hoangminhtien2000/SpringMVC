@@ -1,7 +1,7 @@
-package com.blog_module4_c0922h1.service;
+package com.service;
 
-import com.blog_module4_c0922h1.model.Account;
-import com.blog_module4_c0922h1.repository.IAccountRepo;
+import com.model.Account;
+import com.repository.IAccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,5 +11,9 @@ public class AccountService {
     IAccountRepo iAccountRepo;
     public Account checkLogin(String username, String password){
         return iAccountRepo.checkLogin(username,password);
+    }
+
+    public void register(Account account) {
+        iAccountRepo.save(account);
     }
 }
