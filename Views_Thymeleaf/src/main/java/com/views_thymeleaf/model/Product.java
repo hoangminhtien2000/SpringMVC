@@ -1,7 +1,5 @@
 package com.views_thymeleaf.model;
 
-
-
     public class Product {
         private int id;
         private String name;
